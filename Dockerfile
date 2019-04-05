@@ -21,6 +21,7 @@ RUN apt-get -o Acquire::Check-Valid-Until=false update && \
   gem install rack -v 1.1.6 && \
   gem install passenger -v 3.0.21 && \
   passenger-install-apache2-module --auto && \
+  a2enmod headers && \
   apt-get purge -y --no-install-recommends --auto-remove \
     apache2-dev \
     build-essential \
