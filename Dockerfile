@@ -1,7 +1,8 @@
 FROM tortus/ruby-1.8-rails-1.2:latest
 LABEL server="apache2" ruby="1.8.7-p375" passenger="3.0.21" rails="1.2.6"
 
-ENV APP=/var/www/app
+ENV APP=/var/www/rails
+ENV APPUSER=rails
 
 # Addl. runtime dependencies (RUNLEVEL=1 prevents apache from starting immediately)
 #
@@ -13,6 +14,7 @@ RUN apt-get -o Acquire::Check-Valid-Until=false update && \
     build-essential \
     libapr1-dev \
     libaprutil1-dev \
+    libcurl3 \
     libcurl4-openssl-dev \
     openssl \
     libssl-dev \
@@ -33,11 +35,12 @@ RUN apt-get -o Acquire::Check-Valid-Until=false update && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* && \
   mkdir -p $APP && \
-  chown www-data:www-data $APP
+  useradd -rms /bin/bash -u 999 -g www-data $APPUSER && \
+  chown rails:www-data $APP
 
-COPY passenger.conf /etc/apache2/conf-enabled/passenger.conf
+COPY passenger.conf /etc/apache2/conf-enabled/
 COPY httpd-foreground /usr/local/bin/
-COPY app.conf /etc/apache2/sites-available/000-default.conf
+COPY rails.conf /etc/apache2/sites-available/000-default.conf
 
 VOLUME /var/log/apache2
 

@@ -5,8 +5,8 @@ under Apache 2 / Passenger 3.0.21.
 
 ## Running an App
 
-1. Put the source under /var/www/app.
-2. Change the ownership to www-data:www-data.
+1. Put the source under /var/www/rails.
+2. Change the ownership to rails:www-data.
 
 ## Notes
 
