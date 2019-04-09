@@ -3,6 +3,7 @@ LABEL server="apache2" ruby="1.8.7-p375" passenger="3.0.21" rails="1.2.6"
 
 ENV APP=/var/www/rails
 ENV APPUSER=rails
+ENV RAILS_ENV=development
 
 # Addl. runtime dependencies (RUNLEVEL=1 prevents apache from starting immediately)
 #
@@ -24,6 +25,7 @@ RUN apt-get -o Acquire::Check-Valid-Until=false update && \
   gem install passenger -v 3.0.21 && \
   passenger-install-apache2-module --auto && \
   a2enmod headers && \
+  a2enmod env && \
   apt-get purge -y --no-install-recommends --auto-remove \
     apache2-dev \
     build-essential \
@@ -40,6 +42,7 @@ RUN apt-get -o Acquire::Check-Valid-Until=false update && \
 
 COPY passenger.conf /etc/apache2/conf-enabled/
 COPY httpd-foreground /usr/local/bin/
+COPY z-apache.conf /etc/apache2/conf-enabled/
 COPY rails.conf /etc/apache2/sites-available/000-default.conf
 
 VOLUME /var/log/apache2
