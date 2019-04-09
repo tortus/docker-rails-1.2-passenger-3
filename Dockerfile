@@ -13,13 +13,17 @@ RUN apt-get -o Acquire::Check-Valid-Until=false update && \
     apache2 \
     apache2-dev \
     build-essential \
+    libapr1 \
     libapr1-dev \
+    libapr-util1 \
     libaprutil1-dev \
     libcurl3 \
     libcurl4-openssl-dev \
     openssl \
+    libssl1.0.0 \
     libssl-dev \
-    libz-dev && \
+    zlib1g \
+    zlib1g-dev && \
   gem install rake -v 0.8.7 && \
   gem install rack -v 1.1.6 && \
   gem install passenger -v 3.0.21 && \
@@ -33,7 +37,7 @@ RUN apt-get -o Acquire::Check-Valid-Until=false update && \
     libaprutil1-dev \
     libcurl4-openssl-dev \
     libssl-dev \
-    libz-dev && \
+    zlib1g-dev && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* && \
   mkdir -p $APP && \
