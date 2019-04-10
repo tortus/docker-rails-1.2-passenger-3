@@ -15,7 +15,7 @@ RUN apt-get -o Acquire::Check-Valid-Until=false update && \
     build-essential \
     libapr1 \
     libapr1-dev \
-    libapr-util1 \
+    libaprutil1 \
     libaprutil1-dev \
     libcurl3 \
     libcurl4-openssl-dev \
@@ -28,6 +28,8 @@ RUN apt-get -o Acquire::Check-Valid-Until=false update && \
   gem install rack -v 1.1.6 && \
   gem install passenger -v 3.0.21 && \
   passenger-install-apache2-module --auto && \
+  a2dismod mpm_event && \
+  a2enmod mpm_prefork && \
   a2enmod headers && \
   a2enmod env && \
   apt-get purge -y --no-install-recommends --auto-remove \
