@@ -6,8 +6,6 @@ ENV APP_USER=rails
 ENV RAILS_ENV=development
 
 # Addl. runtime dependencies (RUNLEVEL=1 prevents apache from starting immediately)
-#
-# TODO: Delete build dependencies after passenger and all gems installed.
 RUN apt-get -o Acquire::Check-Valid-Until=false update && \
   RUNLEVEL=1 apt-get install -y --no-install-recommends \
     apache2 \
