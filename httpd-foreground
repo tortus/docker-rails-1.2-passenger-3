@@ -1,4 +1,11 @@
 #!/bin/sh
-set -e
+set -eu
+
+# Append the current value of RAILS_ENV to /etc/apache2/envvars
+# on startup, if missing. Allows setting this value dynamically.
+if ! grep -q 'RAILS_ENV' /etc/apache2/envvars ; then
+    echo "
+export RAILS_ENV=$RAILS_ENV" | tee -a /etc/apache2/envvars
+fi
 
 exec apache2ctl -e info -DFOREGROUND
