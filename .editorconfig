@@ -11,3 +11,6 @@ trim_trailing_whitespace = true
 [*.conf]
 indent_style = tab
 indent_size = 4
+
+[http-foreground]
+indent_size = 4

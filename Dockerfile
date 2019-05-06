@@ -4,7 +4,6 @@ LABEL server="apache2" ruby="1.8.7-p375" passenger="3.0.21" rails="1.2.6"
 ENV APP=/app
 ENV APP_USER=rails
 ENV APP_GROUP=www-data
-ENV RAILS_ENV=development
 
 # RUNLEVEL=1 prevents apache from starting immediately
 RUN apt-get -o Acquire::Check-Valid-Until=false update && \
@@ -55,6 +54,8 @@ COPY mpm_prefork.conf /etc/apache/conf-available/
 COPY passenger.conf /etc/apache2/conf-enabled/
 COPY security.conf /etc/apache2/conf-available/
 COPY rails.conf /etc/apache2/sites-available/000-default.conf
+
+ENV RAILS_ENV=development
 
 WORKDIR $APP
 
