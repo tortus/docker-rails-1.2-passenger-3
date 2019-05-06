@@ -22,9 +22,9 @@ RUN apt-get -o Acquire::Check-Valid-Until=false update && \
     libssl-dev \
     zlib1g \
     zlib1g-dev && \
-  gem install rake -v 0.8.7 && \
-  gem install rack -v 1.1.6 && \
-  gem install passenger -v 3.0.21 && \
+  gem install rake --no-ri --no-rdoc -v 0.8.7 && \
+  gem install rack --no-ri --no-rdoc -v 1.1.6 && \
+  gem install passenger --no-ri --no-rdoc -v 3.0.21 && \
   passenger-install-apache2-module --auto && \
   a2enmod headers && \
   a2enmod env && \
@@ -55,9 +55,10 @@ COPY passenger.conf /etc/apache2/conf-enabled/
 COPY security.conf /etc/apache2/conf-available/
 COPY rails.conf /etc/apache2/sites-available/000-default.conf
 
-ENV RAILS_ENV=development
+ENV RAILS_LOG_TO_STDOUT=true
+ENV RAILS_ENV=production
 
-WORKDIR $APP
+WORKDIR /app
 
 CMD ["/usr/local/bin/httpd-foreground"]
 EXPOSE 80
