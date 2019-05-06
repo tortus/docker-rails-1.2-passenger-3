@@ -22,7 +22,7 @@ Basic vhost template:
 
 ## Custom application environment variables
 
-This image will append the contents of the environment variable `$APACHE\_ENV_VARS` to /etc/apache2/envvars on startup. Use this variable to make custom environment variables available to your app.
+Custom environment variables seem to get passed to the Rails app just fine, even though it is running within an Apache process. However, this image will append the contents of the environment variable `$APACHE\_ENV_VARS` to /etc/apache2/envvars on startup. Use this variable to make custom environment variables available to Apache.
 
 Example:
 
@@ -42,10 +42,7 @@ environment:
 </VirtualHost>
 ```
 
-Passenger applications running within Apache do not have access to Docker environment variables, just the ones Apache sets using the `SetEnv` directive, so some annoyance is needed to get them into your app.
-
 ## Notes
 
 * Rake 0.8.7 is needed for passenger to install (Rake 0.7.3 from the base image
   is insufficient).
-* Apache does not log to stdout, or the rails log. You must link a volume to /var/log/apache2 to get at apache logs.
