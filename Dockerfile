@@ -46,7 +46,8 @@ RUN apt-get -o Acquire::Check-Valid-Until=false update && \
 s!^(\s*CustomLog)\s+\S+!\1 /proc/self/fd/1!g; \
 s!^(\s*ErrorLog)\s+\S+!\1 /proc/self/fd/2!g; \
 ' /etc/apache2/apache2.conf && \
-  echo "\nexport APP_USER=$APP_USER\nexport APP_GROUP=$APP_GROUP" | tee -a /etc/apache2/envvars
+  echo "\nexport APP_USER=$APP_USER\nexport APP_GROUP=$APP_GROUP" | tee -a /etc/apache2/envvars && \
+  a2dissite 000-default
 
 COPY httpd-foreground /usr/local/bin/
 COPY mpm_event.conf /etc/apache/conf-available/

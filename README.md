@@ -6,9 +6,9 @@ Base image for running Rails 1.2 applications in their original production mode 
 
 ## Running an App
 
-1. Put the source under /var/www/rails.
+1. Put the source under /app.
 2. Change the ownership to rails:www-data.
-3. If you need to change the vhost configuration for it, copy your .conf file to /etc/apache2/sites-available/000-default.conf
+3. Copy your vhost .conf file to /etc/apache2/sites-enabled/mysite.conf
 
 Basic vhost template:
 
