@@ -17,6 +17,7 @@ RUN apt-get -o Acquire::Check-Valid-Until=false update && \
     libcurl3 \
     libcurl4-openssl-dev \
     libssl-dev \
+    python3 \
     zlib1g \
     zlib1g-dev && \
   gem install rake --no-ri --no-rdoc -v 0.8.7 && \
@@ -46,11 +47,15 @@ s!^(\s*ErrorLog)\s+\S+!\1 /proc/self/fd/2!g; \
   mkdir /etc/on-server-start && \
   apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-COPY httpd-foreground /usr/local/bin/httpd-foreground
+COPY bin/httpd-foreground /usr/local/bin/httpd-foreground
+COPY bin/setuser /bin/setuser
+COPY on-server-start/*.sh /etc/on-server-start/
 COPY mpm_event.conf /etc/apache/conf-available/mpm_event.conf
 COPY mpm_prefork.conf /etc/apache/conf-available/mpm_prefork.conf
 COPY passenger.conf /etc/apache2/conf-enabled/passenger.conf
 COPY security.conf /etc/apache2/conf-available/security.conf
+
+ENV MIGRATE="false"
 
 WORKDIR /app
 
