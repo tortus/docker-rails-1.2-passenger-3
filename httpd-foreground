@@ -1,21 +1,23 @@
 #!/bin/sh
 set -e
-set -x
 
 # Append the current value of RAILS_ENV to /etc/apache2/envvars
 # on startup, if missing. Allows setting this value dynamically.
+Echo "Setting RAILS_ENV in /etc/apache2/envvars..."
 if ! grep -q 'RAILS_ENV' /etc/apache2/envvars ; then
     echo "
 export RAILS_ENV=$RAILS_ENV" | tee -a /etc/apache2/envvars
 fi
 
 # Append any custom APACHE_ENV_VARS
+echo "Adding APACHE_ENV_VARS to /etc/apache2/envvars..."
 if [ "$APACHE_ENV_VARS" != "" ] ; then
     echo "
 export $APACHE_ENV_VARS" | tee -a /etc/apache2/envvars
 fi
 
 # Run any scripts in /etc/on-server-start
+echo "Running scripts in /etc/on-server-start..."
 if [ -d /etc/on-server-start ] ; then
     for script in /etc/on-server-start/*; do
         [ -f "$script" ] && [ -x "$script" ] && "$script"
