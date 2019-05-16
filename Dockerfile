@@ -1,4 +1,4 @@
-FROM tortus/rails-1.2:latest
+FROM tortus/rails-1.2:1.0.1
 
 ENV APP=/app
 ENV APP_USER=app
