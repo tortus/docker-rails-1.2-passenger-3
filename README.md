@@ -1,14 +1,25 @@
 **NOT FOR USE IN PRODUCTION**
 
-Base image for running Rails 1.2 applications in their original production mode under Apache 2 / Passenger 3.0.21. Your app will run under the "rails" user, in the www-data group.
+Base image for running Rails 1.2 applications in their original production mode under Apache 2 / Passenger 3.0.21. The app will run under the "app" user, in the www-data group.
 
-**RailsEnv** Is set to "development" by default, to make debugging far easier. This must be changed via apache config.
+**RailsEnv** Is set to "development" by default, to make debugging easier.
+
+Includes:
+
+* Ruby 1.8.7
+* Rails 1.2
+* Apache 2
+* Passenger 3
+
+Does _NOT_ include:
+
+* PHP
 
 ## Running an App
 
 1. Put the source under /app.
-2. Change the ownership to rails:www-data.
-3. Copy your vhost .conf file to /etc/apache2/sites-enabled/mysite.conf
+2. Change the ownership to app:www-data.
+3. Copy your Apache vhost .conf file to /etc/apache2/sites-enabled/mysite.conf
 
 Basic vhost template:
 
@@ -20,9 +31,13 @@ Basic vhost template:
 </VirtualHost>
 ```
 
+## Apache Tuning
+
+Custom configuration files are provided for mpm\_event and mpm\_prefork to keep the number of apache processes down and reduce memory usage for development.
+
 ## Custom application environment variables
 
-Custom environment variables seem to get passed to the Rails app just fine, even though it is running within an Apache process. However, this image will append the contents of the environment variable `$APACHE\_ENV_VARS` to /etc/apache2/envvars on startup. Use this variable to make custom environment variables available to Apache.
+Docker environment variables seem to get passed to the Rails app just fine, even though it is running within an Apache process. However, this image will append the contents of the environment variable `$APACHE\_ENV_VARS` to /etc/apache2/envvars on startup. Use this variable to make custom environment variables available to Apache.
 
 Example:
 
@@ -32,7 +47,7 @@ environment:
   - APACHE_ENV_VARS='SMTP_HOST=smtp'
 ```
 
-/etc/apache2/sites-available/000-default.conf:
+/etc/apache2/sites-enabled/mysite.conf:
 ```apache
 <VirtualHost *:80>
   DocumentRoot /app/public
