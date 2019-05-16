@@ -21,9 +21,9 @@ RUN apt-get -o Acquire::Check-Valid-Until=false update && \
     python3 \
     zlib1g \
     zlib1g-dev && \
-  gem install rake --no-ri --no-rdoc -v 0.8.7 && \
-  gem install rack --no-ri --no-rdoc -v 1.1.6 && \
-  gem install passenger --no-ri --no-rdoc -v 3.0.21 && \
+  gem install rake -v 0.8.7 --no-ri --no-rdoc  && \
+  gem install rack -v 1.1.6 --no-ri --no-rdoc && \
+  gem install passenger -v 3.0.21 --no-ri --no-rdoc && \
   passenger-install-apache2-module --auto && \
   a2enmod headers && \
   a2enmod env && \
@@ -48,8 +48,8 @@ s!^(\s*ErrorLog)\s+\S+!\1 /proc/self/fd/2!g; \
   mkdir /etc/on-server-start && \
   apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-COPY bin/httpd-foreground /usr/local/bin/httpd-foreground
-COPY bin/setuser /bin/setuser
+COPY build /build
+COPY bin/* /usr/local/bin/
 COPY on-server-start/*.sh /etc/on-server-start/
 COPY mpm_event.conf /etc/apache/conf-available/mpm_event.conf
 COPY mpm_prefork.conf /etc/apache/conf-available/mpm_prefork.conf
