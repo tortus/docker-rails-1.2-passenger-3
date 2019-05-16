@@ -1,6 +1,6 @@
 **NOT FOR USE IN PRODUCTION**
 
-Base image for running Rails 1.2 applications in their original production mode under Apache 2 / Passenger 3.0.21. The app will run under the "app" user, in the www-data group.
+Base image for running Rails 1.2 applications in their original production mode under Apache 2 / Passenger 3.0.21. The app will run under the "app" user, in the www-data group. As minimal as possible, does not include a lot of the things a good working image probably needs such as database headers and pre-server-start scripts.
 
 **RailsEnv** Is set to "development" by default, to make debugging easier.
 
@@ -30,6 +30,10 @@ Basic vhost template:
   RailsEnv ${RAILS_ENV}
 </VirtualHost>
 ```
+
+## Pre-Start Scripts
+
+Any executable files in /etc/on-server-start/ will be executed prior to Apache startup. This is useful for migrating the database.
 
 ## Apache Tuning
 
