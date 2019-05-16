@@ -51,9 +51,6 @@ COPY mpm_prefork.conf /etc/apache/conf-available/mpm_prefork.conf
 COPY passenger.conf /etc/apache2/conf-enabled/passenger.conf
 COPY security.conf /etc/apache2/conf-available/security.conf
 
-ENV RAILS_LOG_TO_STDOUT=true
-ENV RAILS_ENV=production
-
 WORKDIR /app
 
 CMD ["/usr/local/bin/httpd-foreground"]
