@@ -9,6 +9,8 @@ Includes:
 * Ruby 1.8.7
 * Rails 1.2
 * Apache 2
+* Rake 0.8.7
+* Rack 1.1.6
 * Passenger 3
 
 Does _NOT_ include:
