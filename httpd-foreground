@@ -14,4 +14,11 @@ if [ "$APACHE_ENV_VARS" != "" ] ; then
 export $APACHE_ENV_VARS" | tee -a /etc/apache2/envvars
 fi
 
+# Run any custom startup scripts in /etc/on-server-start
+if [ -d /etc/on-server-start ] ; then
+    for script in /etc/on-server-start/*.sh; do
+        exec $script
+    done
+fi
+
 exec apache2ctl -e info -DFOREGROUND
