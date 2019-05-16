@@ -12,6 +12,10 @@ Includes:
 * Rake 0.8.7
 * Rack 1.1.6
 * Passenger 3
+* host.docker.internal workaround for linux
+* 'setuser' script borrowed from phusion/baseimage-docker
+* Optionally migrates DB on startup
+* dnsutils (for nslookup, etc)
 
 Does _NOT_ include:
 

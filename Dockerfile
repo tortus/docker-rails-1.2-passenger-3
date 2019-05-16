@@ -10,6 +10,7 @@ RUN apt-get -o Acquire::Check-Valid-Until=false update && \
     apache2 \
     apache2-dev \
     build-essential \
+    dnsutils \
     libapr1 \
     libapr1-dev \
     libaprutil1 \
